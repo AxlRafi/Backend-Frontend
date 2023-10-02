@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import { Card, Container, Row, Col, Button, Table } from "react-bootstrap";
 //import axios
 import axios from "axios";
-function IndexProduk() {
+function IndexPetugas() {
   //define state
-  const [produks, setProduks] = useState([]);
+  const [workers, setPetugas] = useState([]);
   //useEffect hook
   useEffect(() => {
     //panggil method "fetchData"
@@ -17,16 +17,16 @@ function IndexProduk() {
   //function "fetchData"
   const fectData = async () => {
     //fetching
-    const response = await axios.get("http://localhost:3000/api/produk");
+    const response = await axios.get("http://localhost:3000/api/petugas");
     //get response data
     const data = await response.data.data;
-    //assign response data to state "produks"
-    setProduks(data);
+    //assign response data to state "workers"
+    setPetugas(data);
   };
   //function "deleteproduk"
-  const deleteProduk = async (id) => {
+  const deletePetugas = async (id) => {
     //sending
-    await axios.delete(`http://localhost:3000/api/produk/delete/${id}`);
+    await axios.delete(`http://localhost:3000/api/petugas/delete/${id}`);
     //panggil function "fetchData"
     fectData();
   };
@@ -38,7 +38,7 @@ function IndexProduk() {
             <Card.Body>
               <Button
                 as={Link}
-                to="/produk/create"
+                to="/petugas/create"
                 variant="success"
                 className="mb-3"
               >
@@ -48,23 +48,25 @@ function IndexProduk() {
                 <thead>
                   <tr>
                     <th>No.</th>
-                    <th>Nama Produk</th>
-                    <th>Deskripsi</th>
-                    <th>Harga</th>
+                    <th>Nama Petugas</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>Level</th>
                     <th>Aksi</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {produks.map((produk, index) => (
-                    <tr key={produk.id}>
+                  {workers.map((worker, index) => (
+                    <tr key={worker.id}>
                       <td>{index + 1}</td>
-                      <td>{produk.nama_produk}</td>
-                      <td>{produk.deskripsi}</td>
-                      <td>{produk.harga}</td>
+                      <td>{worker.nama_petugas}</td>
+                      <td>{worker.username}</td>
+                      <td>{worker.password}</td>
+                      <td>{worker.level}</td>
                       <td className="text-center">
                         <Button
                           as={Link}
-                          to={`/produk/edit/${produk.id_produk}`}
+                          to={`/petugas/edit/${worker.id_petugas}`}
                           variant="primary"
                           size="sm"
                           className="me-2"
@@ -72,7 +74,7 @@ function IndexProduk() {
                           EDIT
                         </Button>
                         <Button
-                          onClick={() => deleteProduk(produk.id_produk)}
+                          onClick={() => deletePetugas(worker.id_petugas)}
                           variant="danger"
                           size="sm"
                         >
@@ -90,4 +92,4 @@ function IndexProduk() {
     </Container>
   );
 }
-export default IndexProduk;
+export default IndexPetugas;

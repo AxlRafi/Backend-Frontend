@@ -14,28 +14,30 @@ import {
 import axios from "axios";
 //import hook history dari react router dom
 import { useHistory } from "react-router-dom";
-function CreateProduk() {
+function CreatePetugas() {
   //state
-  const [nama_produk, setNama_produk] = useState("");
-  const [deskripsi, setDeskripsi] = useState("");
-  const [harga, setHarga] = useState("");
+  const [nama_petugas, setNama_petugas] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [level, setLevel] = useState("");
   //state validation
   const [validation, setValidation] = useState({});
   //history
   const history = useHistory();
-  //method "storeProduk"
-  const storeProduk = async (e) => {
+  //method "storePetugas"
+  const storePetugas = async (e) => {
     e.preventDefault();
     //send data to server
     await axios
-      .post("http://localhost:3000/api/produk/store", {
-        nama_produk: nama_produk,
-        deskripsi: deskripsi,
-        harga: harga,
+      .post("http://localhost:3000/api/petugas/store", {
+        nama_petugas: nama_petugas,
+        username: username,
+        password: password,
+        level: level,
       })
       .then(() => {
         //redirect
-        history.push("/produk");
+        history.push("/petugas");
       })
       .catch((error) => {
         //assign validation on state
@@ -57,33 +59,44 @@ function CreateProduk() {
                   </ul>
                 </Alert>
               )}
-              <Form onSubmit={storeProduk}>
+              <Form onSubmit={storePetugas}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Nama Produk</Form.Label>
+                  <Form.Label>Nama Petugas</Form.Label>
                   <Form.Control
                     type="text"
-                    value={nama_produk}
-                    onChange={(e) => setNama_produk(e.target.value)}
-                    placeholder="Masukkan Nama Produk"
+                    value={nama_petugas}
+                    onChange={(e) => setNama_petugas(e.target.value)}
+                    placeholder="Masukkan Nama Petugas"
                   />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label>Deskripsi Produk</Form.Label>
-                  <Form.Control
-                    as="textarea"
-                    rows={3}
-                    value={deskripsi}
-                    onChange={(e) => setDeskripsi(e.target.value)}
-                    placeholder="Masukkan Deskripsi Produk"
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label>Harga</Form.Label>
+
+                <Form.Group className="mb-3" controlId="formBasicUsername">
+                  <Form.Label>Username</Form.Label>
                   <Form.Control
                     type="text"
-                    value={harga}
-                    onChange={(e) => setHarga(e.target.value)}
-                    placeholder="Masukkan Harga Produk"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="MAsukkan Username"
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicUsername">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Masukkan Password"
+                  />
+                </Form.Group>
+
+                <Form.Group className="mb-3" controlId="formBasicEmail">
+                  <Form.Label>Level</Form.Label>
+                  <Form.Control
+                    type="text"
+                    value={level}
+                    onChange={(e) => setLevel(e.target.value)}
+                    placeholder="Masukkan Level Anda"
                   />
                 </Form.Group>
                 <Button variant="primary" type="submit">
@@ -97,4 +110,4 @@ function CreateProduk() {
     </Container>
   );
 }
-export default CreateProduk;
+export default CreatePetugas;
